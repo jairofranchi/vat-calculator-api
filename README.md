@@ -13,7 +13,7 @@ Clone the repository and from the command line go to VATCalculatorAPI/ and run t
 
 # VATCalculatorAPI Methods
 
-- Calculate VAT for purchase in Austria: https://localhost:8080/api/VATCalculator/calculate-vat-austria
+- Calculate VAT for purchase in Austria: https://localhost:5178/api/VATCalculator/calculate-vat-austria
     
     Parameter in body:
       
