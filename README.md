@@ -16,9 +16,7 @@ Clone the repository and from the command line go to VATCalculatorAPI/ and run t
 - Calculate VAT for purchase in Austria: https://localhost:8080/api/VATCalculator/calculate-vat-austria
     
     Parameter in body:
-    - Just one of the amounts that can be sent: netAmount, grossAmount or vatAmount.
-    - From the amount sent, the other two will be calculated. Like the example below, sending the grossAmount in the request, netAmount and vatAmount will be calculated
-        
+      
         ### Request Body
         {
             "grossAmount": 2555,
@@ -31,3 +29,5 @@ Clone the repository and from the command line go to VATCalculatorAPI/ and run t
             "netAmount": 2129.17,
             "vatAmount": 425.83
         }
+  - Just one of the amounts that can be sent in the request body: netAmount, grossAmount or vatAmount.
+  - From the amount sent, the other two will be calculated. Like the example above, sending the grossAmount in the request, netAmount and vatAmount will be calculated
