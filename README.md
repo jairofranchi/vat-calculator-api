@@ -1,5 +1,4 @@
 # VATCalculatorAPI
-VAT Calculator API
 
 # Requirements
 - .Net 7.0 - https://dotnet.microsoft.com/en-us/download
