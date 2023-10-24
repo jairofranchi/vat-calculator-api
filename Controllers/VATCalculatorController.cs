@@ -1,7 +1,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using VATCalculatorAPI.Models;
+using VATCalculatorAPI.DTOs;
 using VATCalculatorAPI.Services;
 
 namespace VATCalculatorAPI.Controllers;
@@ -11,12 +11,12 @@ namespace VATCalculatorAPI.Controllers;
 public class VATCalculatorController : ControllerBase
 {
     private readonly ILogger<VATCalculatorController> _logger;
-    private readonly IValidator<PurchaseAmount> _validator;
+    private readonly IValidator<PurchaseAmountRequest> _validator;
     private readonly IVATCalculatorService _purchaseService;
 
     public VATCalculatorController(
         ILogger<VATCalculatorController> logger,
-        IValidator<PurchaseAmount> validator,
+        IValidator<PurchaseAmountRequest> validator,
         IVATCalculatorService purchaseService)
     {
         _logger = logger;
@@ -25,12 +25,12 @@ public class VATCalculatorController : ControllerBase
     }
 
     [HttpPost("calculate-vat-austria")]
-    public IActionResult CalculateVATAustria([FromBody] PurchaseAmount purchaseAmount)
+    public IActionResult CalculateVATAustria([FromBody] PurchaseAmountRequest purchaseAmountRequest)
     {
-        var validationResult = _validator.Validate(purchaseAmount);
+        var validationResult = _validator.Validate(purchaseAmountRequest);
         if (validationResult.IsValid)
         {
-            var calculatedVAT = _purchaseService.CalculateVAT(purchaseAmount);
+            var calculatedVAT = _purchaseService.CalculateVAT(purchaseAmountRequest);
             _logger.LogInformation($"VAT Calculations: {JsonConvert.SerializeObject(calculatedVAT)}");
 
             return Ok(calculatedVAT);
@@ -39,7 +39,7 @@ public class VATCalculatorController : ControllerBase
         {
             _logger.LogError("Validation failed: {@ValidationResult}", validationResult);
 
-            return BadRequest(validationResult.Errors);
+            return BadRequest(new { Message = "Validation failed", validationResult.Errors });
         }
     }
 }

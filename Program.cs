@@ -1,6 +1,6 @@
 using FluentValidation;
 using Microsoft.OpenApi.Models;
-using VATCalculatorAPI.Models;
+using VATCalculatorAPI.DTOs;
 using VATCalculatorAPI.Services;
 using VATCalculatorAPI.Validators;
 
@@ -21,7 +21,7 @@ builder.Services.AddControllers();
 
 //Dependency Injection
 builder.Services.AddScoped<IVATCalculatorService, VATCalculatorService>();
-builder.Services.AddTransient<IValidator<PurchaseAmount>, PurchaseAmountValidator>();
+builder.Services.AddTransient<IValidator<PurchaseAmountRequest>, PurchaseAmountRequestValidator>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

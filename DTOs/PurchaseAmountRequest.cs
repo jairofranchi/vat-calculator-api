@@ -1,7 +1,6 @@
-using Newtonsoft.Json;
+namespace VATCalculatorAPI.DTOs;
 
-namespace VATCalculatorAPI.Models;
-public class PurchaseAmount
+public class PurchaseAmountRequest
 {
     public decimal? GrossAmount { get; set; }
     public decimal? NetAmount { get; set; }

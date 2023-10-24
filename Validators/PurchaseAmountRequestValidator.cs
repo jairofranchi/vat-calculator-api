@@ -1,12 +1,12 @@
 using System.Data;
 using FluentValidation;
-using VATCalculatorAPI.Models;
+using VATCalculatorAPI.DTOs;
 
 namespace VATCalculatorAPI.Validators;
 
-public class PurchaseAmountValidator : AbstractValidator<PurchaseAmount>
+public class PurchaseAmountRequestValidator : AbstractValidator<PurchaseAmountRequest>
 {
-    public PurchaseAmountValidator()
+    public PurchaseAmountRequestValidator()
     {
         RuleFor(p => p.VATRate)
             .Must(HaveVATRateAllowed)
@@ -32,7 +32,7 @@ public class PurchaseAmountValidator : AbstractValidator<PurchaseAmount>
     private bool BeValidDecimalAndNotZero(decimal? value) =>
         value.HasValue && decimal.TryParse(value.ToString(), out decimal result) && result > 0;
 
-    private bool HaveOnlyOneAmountFilled(PurchaseAmount model)
+    private bool HaveOnlyOneAmountFilled(PurchaseAmountRequest model)
     {
         var decimals = new[] { model.GrossAmount, model.NetAmount, model.VATAmount };
         var filledDecimals = decimals.Where(d => d.HasValue).ToList();

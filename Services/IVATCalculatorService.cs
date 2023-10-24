@@ -1,8 +1,9 @@
 using VATCalculatorAPI.Models;
+using VATCalculatorAPI.DTOs;
 
 namespace VATCalculatorAPI.Services;
 
 public interface IVATCalculatorService
 {
-    PurchaseVATCalculated CalculateVAT(PurchaseAmount data);
+    PurchaseVATCalculated CalculateVAT(PurchaseAmountRequest data);
 }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="json.net" Version="1.0.33" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.12" />

@@ -1,9 +1,10 @@
+using VATCalculatorAPI.DTOs;
 using VATCalculatorAPI.Models;
 
 namespace VATCalculatorAPI.Services;
 public class VATCalculatorService : IVATCalculatorService
 {
-    public PurchaseVATCalculated CalculateVAT(PurchaseAmount data)
+    public PurchaseVATCalculated CalculateVAT(PurchaseAmountRequest data)
     {
         var purchaseAmountDTO = new PurchaseVATCalculated();
 
