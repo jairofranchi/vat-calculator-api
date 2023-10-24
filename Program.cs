@@ -7,26 +7,25 @@ using VATCalculatorAPI.Validators;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddHttpsRedirection(options =>
+builder.Services.AddCors(options =>
 {
-    options.HttpsPort = 443;
-});
-
-builder.Services.AddCors(options => {
-    options.AddPolicy("AllowOrigin", builder => {
-        builder.WithOrigins("https://localhost:5178")
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.WithOrigins("*")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
 });
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IVATCalculatorService, VATCalculatorService>();
-builder.Services.AddTransient<IValidator<PurchaseAmount>, PurchaseAmountValidator>(); 
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+//Dependency Injection
+builder.Services.AddScoped<IVATCalculatorService, VATCalculatorService>();
+builder.Services.AddTransient<IValidator<PurchaseAmount>, PurchaseAmountValidator>();
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c =>
+{
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "VAT Calculator API", Version = "v1" });
 });
 

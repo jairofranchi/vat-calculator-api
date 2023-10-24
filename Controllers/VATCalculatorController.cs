@@ -1,6 +1,6 @@
-using System.Text.Json;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using VATCalculatorAPI.Models;
 using VATCalculatorAPI.Services;
 
@@ -31,7 +31,7 @@ public class VATCalculatorController : ControllerBase
         if (validationResult.IsValid)
         {
             var calculatedVAT = _purchaseService.CalculateVAT(purchaseAmount);
-            _logger.LogInformation($"VAT Calculations: { JsonSerializer.Serialize(calculatedVAT) }");
+            _logger.LogInformation($"VAT Calculations: {JsonConvert.SerializeObject(calculatedVAT)}");
 
             return Ok(calculatedVAT);
         }
