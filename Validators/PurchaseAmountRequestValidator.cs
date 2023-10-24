@@ -8,13 +8,18 @@ public class PurchaseAmountRequestValidator : AbstractValidator<PurchaseAmountRe
 {
     public PurchaseAmountRequestValidator()
     {
+        RuleFor(p => p)
+            .Must(HaveAnAmountFilled)
+            .WithMessage("Purchase amount to calculate VAT must be informed.");
+
         RuleFor(p => p.VATRate)
             .Must(HaveVATRateAllowed)
             .WithMessage("Vat Rate must be 0.1, 0.13 or 0.2!");
 
         RuleFor(model => model)
             .Must(HaveOnlyOneAmountFilled)
-            .WithMessage("One of the properties must be passed: netAmount, grossAmount or vatAmount.");
+            .When(p => p.VATAmount is not null || p.NetAmount is not null || p.GrossAmount is not null)
+            .WithMessage("Just one of the amounts should be passed: netAmount, grossAmount or vatAmount.");
 
         RuleFor(model => model.GrossAmount)
             .Must(BeValidDecimalAndNotZero).WithMessage("GrossAmount must be a valid decimal greater than 0.")
@@ -31,6 +36,9 @@ public class PurchaseAmountRequestValidator : AbstractValidator<PurchaseAmountRe
 
     private bool BeValidDecimalAndNotZero(decimal? value) =>
         value.HasValue && decimal.TryParse(value.ToString(), out decimal result) && result > 0;
+
+    private bool HaveAnAmountFilled(PurchaseAmountRequest model) => 
+        model.NetAmount is not null || model.GrossAmount is not null || model.VATAmount is not null;
 
     private bool HaveOnlyOneAmountFilled(PurchaseAmountRequest model)
     {
